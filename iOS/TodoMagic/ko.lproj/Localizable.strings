@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  TodoMagic
+
+  Created by hyochan on 2020/03/05.
+  Copyright © 2020 dooboolab. All rights reserved.
+*/
+"APP_TITLE" = "마법의 할일";
+"TITLE" = "제목";
+"ENTER_TITLE" = "제목을 입력해주세요...";
+"DONE" = "완료";
+"TODO" = "할일";
+"SETTINGS" = "설정";
+"EDIT" = "수정";
+"DESCRIPTION" = "설명";
+"DELETE" = "지우기";

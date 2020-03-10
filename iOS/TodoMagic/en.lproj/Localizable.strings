@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  TodoMagic
+
+  Created by hyochan on 2020/03/05.
+  Copyright © 2020 dooboolab. All rights reserved.
+*/
+"APP_TITLE" = "Todo Magic";
+"TITLE" = "Title";
+"ENTER_TITLE" = "Enter title...";
+"DONE" = "Done";
+"TODO" = "Todo";
+"SETTINGS" = "Settings";
+"EDIT" = "Edit";
+"DESCRIPTION" = "Description";
+"DELETE" = "Delete";
