@@ -10,12 +10,9 @@ import SwiftUI
 
 struct Switch: View {
     @EnvironmentObject var appStore: AppStore
-    // Resetting screen issue (Switching screens)
-    // https://stackoverflow.com/questions/57334455/swiftui-how-to-pop-to-root-view/57513566#57513566
-    
-    // Navigating with animation
-    // https://stackoverflow.com/questions/58908741/how-do-i-add-animations-to-transitons-between-custom-navigationitems-made-from-a/59087574#59087574
+    @ObservedObject var settings = UserSettings()
 
+    @ViewBuilder
     var body: some View {
         ZStack {
             if (appStore.currentScreen == "Welcome") {
@@ -23,7 +20,15 @@ struct Switch: View {
             } else {
                 HomeTab().transition(.move(edge: .trailing))
             }
-        }.transition(.move(edge: .bottom))
+        }
+        .transition(.move(edge: .bottom))
+        .onAppear() {
+            if (self.settings.showOnStart) {
+                self.appStore.currentScreen = "Welcome"
+            } else {
+                self.appStore.currentScreen = "HomeTab"
+            }
+        }
     }
 }
 

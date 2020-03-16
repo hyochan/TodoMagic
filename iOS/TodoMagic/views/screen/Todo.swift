@@ -33,15 +33,8 @@ struct Todo: View {
                     }
                 }.onDelete(perform: delete)
             }
-            // Localization in SwiftUI: https://sweetdev.tistory.com/429
-            .navigationBarTitle("APP_TITLE")
-            // Issue on crashing when navigating back
-            // ios 13.2 and upgraded to xcode that has 13.3 simulator
-            // https://forums.developer.apple.com/thread/124757
+            .navigationBarTitle("TODO")
             .navigationBarItems(trailing:
-                // Issue on navigating once
-                // Happen to be resolved from xcode 11.4 beta
-                // https://stackoverflow.com/questions/59279176/navigationlink-works-only-for-once?rq=1
                 NavigationLink(
                     destination: TodoAdd(todos: $localTodos)
                 ) {

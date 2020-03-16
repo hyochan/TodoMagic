@@ -5,7 +5,9 @@
   Created by hyochan on 2020/03/05.
   Copyright © 2020 dooboolab. All rights reserved.
 */
-"APP_TITLE" = "Todo Magic";
+"APP_TITLE" = "TodoMagic";
+"APP_DESCRIPTION" = "TodoMagic is an opensource todo app that aims to provide starter project to developers outside the world. This app is also my daily app to memoize important tasks.";
+"GO_TO_REPOSITORY" = "Go to repository";
 "TITLE" = "Title";
 "ENTER_TITLE" = "Enter title...";
 "DONE" = "Done";
@@ -14,3 +16,5 @@
 "EDIT" = "Edit";
 "DESCRIPTION" = "Description";
 "DELETE" = "Delete";
+"CLICK_TO_PROCEED" = "Click to proceed";
+"DO_NOT_SEE_AGAIN" = "Do not see again";

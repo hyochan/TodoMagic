@@ -5,7 +5,9 @@
   Created by hyochan on 2020/03/05.
   Copyright © 2020 dooboolab. All rights reserved.
 */
-"APP_TITLE" = "마법의 할일";
+"APP_TITLE" = "투두매직";
+"APP_DESCRIPTION" = "TodoMagic은 전세계 모든 개발자들이 쉽게 개발에 접근할 수 있도록 도와주는 오픈소스 프로젝트입니다. 또한, 이 앱은 저의 중요한 할일들을 잊지 않고 관리해주기 위해 개발되었습니다.";
+"GO_TO_REPOSITORY" = "레포지토리 구경하기";
 "TITLE" = "제목";
 "ENTER_TITLE" = "제목을 입력해주세요...";
 "DONE" = "완료";
@@ -14,3 +16,5 @@
 "EDIT" = "수정";
 "DESCRIPTION" = "설명";
 "DELETE" = "지우기";
+"CLICK_TO_PROCEED" = "클릭해서 계속하기";
+"DO_NOT_SEE_AGAIN" = "다시보지 않기";

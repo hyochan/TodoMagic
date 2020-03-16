@@ -10,6 +10,7 @@ import SwiftUI
 
 struct Settings: View {
     @EnvironmentObject var appStore: AppStore
+    @ObservedObject var userSettings = UserSettings()
 
     let settings = [
         SettingsModel(group: "Info", items: [
@@ -31,6 +32,7 @@ struct Settings: View {
                                 pressed: {
                                     if (item.title == "Back to welcome") {
                                         withAnimation {
+                                            self.userSettings.showOnStart = true
                                             self.appStore.changeScreen(screenName: "Welcome")
                                         }
                                     }
@@ -41,6 +43,7 @@ struct Settings: View {
                 }
             }
             .navigationBarTitle(Text("SETTINGS"))
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }
