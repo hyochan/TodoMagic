@@ -223,7 +223,6 @@
 		454C2287240E8AC300396F25 /* TodoMagic */ = {
 			isa = PBXGroup;
 			children = (
-				4575309C24277AEF00661D28 /* Todos.xcdatamodeld */,
 				454C228E240E8AC500396F25 /* Assets.xcassets */,
 				45D9CF4024111DFF005528EA /* Localizable.strings */,
 				457530A924277BB900661D28 /* resources */,

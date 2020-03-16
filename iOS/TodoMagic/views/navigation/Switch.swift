@@ -12,6 +12,7 @@ struct Switch: View {
     @EnvironmentObject var appStore: AppStore
     @ObservedObject var settings = UserSettings()
 
+    @ViewBuilder
     var body: some View {
         ZStack {
             if (appStore.currentScreen == "Welcome") {
