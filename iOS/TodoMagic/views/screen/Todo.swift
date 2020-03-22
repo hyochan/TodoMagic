@@ -61,11 +61,19 @@ struct Todo: View {
                         title: todos.title ?? "",
                         image: todos.image ?? "",
                         content: todos.content ?? "",
-                        createdAt: todos.createdAt ?? Date()
+                        selectedDate: todos.selectedDate ?? Date()
                     )
                 )
             }
-            self.localTodos = self.localTodos.sorted(by: {!$0.hasChecked && $1.hasChecked})
+            self.localTodos = self.localTodos.sorted {
+                if $0.hasChecked != $1.hasChecked {
+                    return !$0.hasChecked && $1.hasChecked
+                }
+
+                else { // All other fields are tied, break ties by last name
+                    return $0.selectedDate.compare($1.selectedDate) == .orderedDescending
+                }
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
