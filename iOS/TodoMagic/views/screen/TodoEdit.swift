@@ -10,7 +10,10 @@ import SwiftUI
 
 struct TodoEdit: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.managedObjectContext) var context
     @Binding var todo: TodoModel
+    var fetchedTodos:FetchedResults<Todos>?
+    var index: Int
 
     var body: some View {
         List{
@@ -19,6 +22,21 @@ struct TodoEdit: View {
         .navigationBarItems(trailing:
             Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
+
+                if (self.fetchedTodos != nil) {
+                    let updateItem = self.fetchedTodos![self.index]
+                    updateItem.title = self.todo.title
+                    updateItem.content = self.todo.content
+                    updateItem.image = self.todo.image
+                    updateItem.selectedDate = self.todo.selectedDate
+                    updateItem.updatedAt = Date()
+
+                    do {
+                        try self.context.save()
+                    } catch {
+                        print(error)
+                    }
+                }
             }) {
                 Text("DONE")
             }
@@ -30,6 +48,9 @@ struct TodoEdit: View {
 
 struct TodoEdit_Previews: PreviewProvider {
     static var previews: some View {
-        TodoEdit(todo: .constant(todos[0]))
+        TodoEdit(
+            todo: .constant(testTodos[0]),
+            index: 0
+        )
     }
 }

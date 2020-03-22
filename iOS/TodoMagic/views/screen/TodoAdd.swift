@@ -35,9 +35,10 @@ let systemIcons = [
 
 struct TodoAdd: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.managedObjectContext) var context
     @Binding var todos: [TodoModel]
     @State var todo: TodoModel = TodoModel(
-        title: "", image: systemIcons[0], text: ""
+        title: "", image: systemIcons[0], content: ""
     )
 
     var body: some View {
@@ -49,8 +50,20 @@ struct TodoAdd: View {
             Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
                 if (self.todo.title != "") {
-                    self.todos.append(self.todo)
-                    self.todos = self.todos.sorted(by: {!$0.hasChecked && $1.hasChecked})
+                    let newTodo = Todos(context: self.context)
+                    newTodo.title = self.todo.title
+                    newTodo.content = self.todo.content
+                    newTodo.image = self.todo.image
+                    newTodo.selectedDate = self.todo.selectedDate
+                    newTodo.createdAt = Date()
+
+                    do {
+                        try self.context.save()
+                        self.todos.append(self.todo)
+                        self.todos = self.todos.sorted(by: {!$0.hasChecked && $1.hasChecked})
+                    } catch {
+                        print(error)
+                    }
                 }
             }) {
                 Text("DONE")
@@ -64,6 +77,6 @@ struct TodoAdd: View {
 
 struct TodoAdd_Previews: PreviewProvider {
     static var previews: some View {
-        TodoAdd(todos: .constant(todos))
+        TodoAdd(todos: .constant(testTodos))
     }
 }

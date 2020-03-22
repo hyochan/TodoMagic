@@ -18,7 +18,7 @@ struct TodoRow: View {
                 Text(todo.title)
                     .strikethrough()
                     .font(.system(size: 20, weight: .bold))
-                Text(getFormattedDate(date: todo.date, format: "dd-MMM-yyyy"))
+                Text(getFormattedDate(date: todo.selectedDate, format: "dd-MMM-yyyy"))
                     .strikethrough()
                     .font(.caption)
                     .fontWeight(.bold)
@@ -28,7 +28,7 @@ struct TodoRow: View {
         return VStack(alignment: .leading) {
             Text(todo.title)
                 .font(.system(size: 20, weight: .bold))
-            Text(getFormattedDate(date: todo.date, format: "dd-MMM-yyyy"))
+            Text(getFormattedDate(date: todo.selectedDate, format: "dd-MMM-yyyy"))
                 .font(.caption)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
@@ -58,6 +58,6 @@ struct TodoRow: View {
 
 struct TodoRow_Previews: PreviewProvider {
     static var previews: some View {
-        TodoRow(todo: .constant(todos[0]), todos: .constant(todos))
+        TodoRow(todo: .constant(testTodos[0]), todos: .constant(testTodos))
     }
 }

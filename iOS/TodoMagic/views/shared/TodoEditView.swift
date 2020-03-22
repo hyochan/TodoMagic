@@ -33,14 +33,14 @@ struct TodoEditView: View {
                 Text("DESCRIPTION")
                     .font(.callout)
                     .bold()
-                TextField("ENTER_TITLE", text: $todo.text)
+                TextField("ENTER_TITLE", text: $todo.content)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }.padding(.horizontal)
             .padding(.vertical, 10)
 
             DatePicker(
                 "Please enter date",
-                selection: $todo.date,
+                selection: $todo.selectedDate,
                 displayedComponents: .date
             ).labelsHidden()
 
@@ -51,6 +51,6 @@ struct TodoEditView: View {
 
 struct TodoEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoEditView(todo: .constant(todos[0]))
+        TodoEditView(todo: .constant(testTodos[0]))
     }
 }
