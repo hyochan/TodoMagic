@@ -8,22 +8,24 @@
 
 import SwiftUI
 
-let todos = [
-    TodoModel(title: "Card", image: "umbrella", text: "I need to make it till 7pm"),
-    TodoModel(title: "Do it!", image: "wind", text: "빨리빨리"),
-    TodoModel(title: "미팅 고고!", image: "wind", text: "오후 3시 삼성 스파크플러스")
+let testTodos = [
+    TodoModel(title: "Wake up", image: "umbrella", content: "This is sample todo!"),
 ]
 
 struct Todo: View {
-    @State private var localTodos: [TodoModel] = todos
+    @State private var localTodos: [TodoModel] = []
     @State private var show = false;
+    @Environment(\.managedObjectContext) var context
+    @FetchRequest(fetchRequest: Todos.getAllTodos()) var fetchedTodos:FetchedResults<Todos>
 
     var body: some View {
         NavigationView{
             List {
                 ForEach(Array(localTodos.enumerated()), id: \.1.id) { (index, todo) in
                     NavigationLink(destination: TodoDetail(
-                        todo: self.$localTodos[index]
+                        todo: self.$localTodos[index],
+                        fetchedTodos: self.fetchedTodos,
+                        index: index
                     )) {
                         TodoRow(
                             todo: self.$localTodos[index],
@@ -31,17 +33,19 @@ struct Todo: View {
                         )
                         .animation(.linear)
                     }
-                }.onDelete(perform: delete)
+                }.onDelete { indexSet in
+                    let deleteItem = self.fetchedTodos[indexSet.first!]
+                    self.context.delete(deleteItem)
+                    do {
+                        try self.context.save()
+                        self.localTodos.remove(at: indexSet.first!)
+                    } catch {
+                        print(error)
+                    }
+                }
             }
-            // Localization in SwiftUI: https://sweetdev.tistory.com/429
-            .navigationBarTitle("APP_TITLE")
-            // Issue on crashing when navigating back
-            // ios 13.2 and upgraded to xcode that has 13.3 simulator
-            // https://forums.developer.apple.com/thread/124757
+            .navigationBarTitle("TODO")
             .navigationBarItems(trailing:
-                // Issue on navigating once
-                // Happen to be resolved from xcode 11.4 beta
-                // https://stackoverflow.com/questions/59279176/navigationlink-works-only-for-once?rq=1
                 NavigationLink(
                     destination: TodoAdd(todos: $localTodos)
                 ) {
@@ -51,13 +55,19 @@ struct Todo: View {
             )
         }
         .onAppear() {
+            self.fetchedTodos.forEach { todos in
+                self.localTodos.append(
+                    TodoModel(
+                        title: todos.title ?? "",
+                        image: todos.image ?? "",
+                        content: todos.content ?? "",
+                        createdAt: todos.createdAt ?? Date()
+                    )
+                )
+            }
             self.localTodos = self.localTodos.sorted(by: {!$0.hasChecked && $1.hasChecked})
         }
         .navigationViewStyle(StackNavigationViewStyle())
-    }
-    
-    private func delete(with indexSet: IndexSet) {
-        indexSet.forEach { localTodos.remove(at: $0) }
     }
 }
 

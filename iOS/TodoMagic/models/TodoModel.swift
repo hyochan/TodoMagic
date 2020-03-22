@@ -18,7 +18,9 @@ struct TodoModel: Identifiable, Hashable {
     var id = UUID()
     var title: String
     var image: String
-    var text: String
+    var content: String = ""
     var hasChecked: Bool = false
-    var date: Date = Date()
+    var selectedDate: Date = Date()
+    var createdAt: Date?
+    var updatedAt: Date?
 }
