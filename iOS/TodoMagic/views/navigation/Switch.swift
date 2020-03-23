@@ -21,7 +21,7 @@ struct Switch: View {
             }
         }
         .transition(.move(edge: .bottom))
-        .onAppear() {
+        .onAppear {
             if (self.settings.showOnStart) {
                 self.appStore.currentScreen = "Welcome"
             } else {

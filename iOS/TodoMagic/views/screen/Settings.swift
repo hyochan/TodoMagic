@@ -13,12 +13,28 @@ struct Settings: View {
     @ObservedObject var userSettings = UserSettings()
 
     let settings = [
-        SettingsModel(group: "Info", items: [
-            SettingsItem(title: "Version", text: "1.0.0")
-        ]),
-        SettingsModel(group: "Others", items: [
-            SettingsItem(title: "Back to welcome")
-        ])
+        SettingsModel(
+            group: NSLocalizedString("INFO", comment: "Info"),
+            items: [
+                SettingsItem(
+                    title: NSLocalizedString("VERSION", comment: "Version"),
+                    text: "1.0.0"
+                )
+            ]
+        ),
+        SettingsModel(
+            group: NSLocalizedString("OTHERS", comment: "Others"),
+            items: [
+                SettingsItem(
+                    title: NSLocalizedString("ABOUT_ME", comment: "About me"),
+                    type: SettingType.ABOUT_ME
+                ),
+                SettingsItem(
+                    title: NSLocalizedString("BACK_TO_INTRO", comment: "Back to intro"),
+                    type: SettingType.BACK_TO_INTRO
+                )
+            ]
+        )
     ]
 
     var body: some View {
@@ -30,7 +46,11 @@ struct Settings: View {
                             SettingsRow(
                                 settings: item,
                                 pressed: {
-                                    if (item.title == "Back to welcome") {
+                                    if (item.type == SettingType.ABOUT_ME) {
+                                        let url: NSURL = URL(string: "https://github.com/hyochan")! as NSURL
+                                        UIApplication.shared.open(url as URL)
+                                    }
+                                    else if (item.type == SettingType.BACK_TO_INTRO) {
                                         withAnimation {
                                             self.userSettings.showOnStart = true
                                             self.appStore.changeScreen(screenName: "Welcome")

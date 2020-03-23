@@ -17,7 +17,7 @@ func getFormattedDate(date: Date, format: String) -> String {
 struct TodoModel: Identifiable, Hashable {
     var id = UUID()
     var title: String
-    var image: String
+    var image: String?
     var content: String = ""
     var hasChecked: Bool = false
     var selectedDate: Date = Date()

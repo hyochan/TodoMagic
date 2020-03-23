@@ -10,42 +10,32 @@ import SwiftUI
 import Foundation
 
 let systemIcons = [
-    "moon.zzz",
-    "zzz",
-    "cloud",
-    "umbrella",
-    "flame",
-    "slowmo",
-    "keyboard",
-    "circle.grid.hex",
-    "heart",
-    "star",
-    "flag",
-    "tag",
-    "rectangle",
-    "shield",
-    "burst",
-    "a.circle",
-    "b.circle",
-    "c.circle",
-    "d.circle",
-    "e.circle",
-    "f.circle"
+    "moon.zzz", "zzz", "cloud", "umbrella", "flame", "slowmo", "keyboard",
+    "circle.grid.hex", "heart", "star", "flag", "tag", "rectangle",
+    "shield", "burst", "a.circle", "b.circle", "c.circle", "d.circle", "e.circle",
+    "f.circle", "ant.fill", "bandage", "eyedropper", "lock", "hammer", "smiley.fill",
+    "star.circle.fill", "rhombus", "star", "location", "bolt.circle.fill", "icloud",
+    "tortoise.fill", "film", "pano", "checkmark.shield.fill", "cube.fill", "cube",
+    "livephoto", "scope", "ear", "hand.thumbsup", "hand.draw", "hand.point.right",
+    "burst", "waveform.path.ecg", "staroflife", "app", "app.gift.fill", "app.badge",
+    "airplane", "hourglass.tophalf.fill", "skew", "grid.circle", "lasso", "eyeglasses",
+    "battery.100", "lightbulb", "info", "exclamationmark", "circle", "asterisk.circle.fill",
+    "rays", "timelapse", "slowmo", "suit.heart"
 ]
 
 struct TodoAdd: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var context
-    @Binding var todos: [TodoModel]
+    @EnvironmentObject var todoStore: TodoStore
     @State var todo: TodoModel = TodoModel(
-        title: "", image: systemIcons[0], content: ""
+        title: "", image: "", content: ""
     )
 
     var body: some View {
-        List {
+        ScrollView {
             TodoEditView(todo: $todo)
         }
-        .navigationBarTitle("Todo Add")
+        .navigationBarTitle("ADD_TODO")
         .navigationBarItems(trailing:
             Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
@@ -59,8 +49,8 @@ struct TodoAdd: View {
 
                     do {
                         try self.context.save()
-                        self.todos.append(self.todo)
-                        self.todos = self.todos.sorted(by: {!$0.hasChecked && $1.hasChecked})
+                        self.todoStore.addTodo(todo: self.todo)
+                        self.todoStore.sort()
                     } catch {
                         print(error)
                     }
@@ -69,7 +59,9 @@ struct TodoAdd: View {
                 Text("DONE")
             }
         ).onAppear {
-            self.todo.image = systemIcons.randomElement() ?? systemIcons[0];
+            if (self.todo.image == "") {
+              self.todo.image = systemIcons.randomElement() ?? systemIcons[0];
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -77,6 +69,6 @@ struct TodoAdd: View {
 
 struct TodoAdd_Previews: PreviewProvider {
     static var previews: some View {
-        TodoAdd(todos: .constant(testTodos))
+        TodoAdd()
     }
 }

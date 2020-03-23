@@ -18,3 +18,13 @@
 "DELETE" = "지우기";
 "CLICK_TO_PROCEED" = "클릭해서 계속하기";
 "DO_NOT_SEE_AGAIN" = "다시보지 않기";
+"NO_TODOS" = "예정된 할일 없음";
+"ADD_TODO" = "할일 추가";
+"ENTER_TITLE" = "제목을 입력해주세요...";
+"ENTER_DESCRIPTION" = "설명을 입력해주세요...";
+"SELECT_ICON" = "아이콘 선택";
+"INFO" = "정보";
+"VERSION" = "버전";
+"OTHERS" = "기타";
+"ABOUT_ME" = "저자에 대해";
+"BACK_TO_INTRO" = "소개 페이지로 이동";

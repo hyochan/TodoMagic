@@ -12,10 +12,11 @@ struct Welcome: View {
     @EnvironmentObject var appStore: AppStore
     @ObservedObject var settings = UserSettings()
     @State var showOnStart = true
+    @State private var todos: [TodoModel] = []
 
     var body: some View {
         ZStack {
-            Color("titleBackground")
+            Color("primaryDark")
                 .edgesIgnoringSafeArea(.all)
                 
             VStack {
@@ -66,7 +67,7 @@ struct Welcome: View {
                         .padding()
                         .padding(.horizontal, 20)
                         .background(Color(red: 255, green: 255, blue: 255, opacity: 0.0032))
-                        .foregroundColor(Color("titleBackground"))
+                        .foregroundColor(Color("primaryDark"))
                         .border(Color.white, width: 1)
                         .animation(.interactiveSpring())
                 }

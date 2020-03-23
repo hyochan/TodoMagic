@@ -21,11 +21,11 @@ struct SettingsRow: View {
         }) {
             VStack(alignment: .leading) {
                 Text(settings.title)
-                    .font(.system(size: 20, weight: .bold))
+                    .font(.system(size: 18, weight: .bold))
                 Text(settings.text ?? "")
                     .lineLimit(2)
-                    .font(.headline)
-                    .foregroundColor(Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                    .font(.subheadline)
+                    .foregroundColor(Color("font"))
             }
         }
     }

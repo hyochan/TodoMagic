@@ -11,13 +11,23 @@ import SwiftUI
 struct TodoEdit: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var context
-    @Binding var todo: TodoModel
+    @EnvironmentObject var todoStore: TodoStore
+    @State var todo: TodoModel = TodoModel(
+        title: "", image: systemIcons[0], content: ""
+    )
+
     var fetchedTodos:FetchedResults<Todos>?
     var index: Int
 
     var body: some View {
-        List{
+        ScrollView{
             TodoEditView(todo: $todo)
+        }
+        .onAppear {
+            if (self.todo.title == "") {
+                let currentTodo = self.todoStore.todos[self.index]
+                self.todo = currentTodo
+            }
         }
         .navigationBarItems(trailing:
             Button(action: {
@@ -25,14 +35,17 @@ struct TodoEdit: View {
 
                 if (self.fetchedTodos != nil) {
                     let updateItem = self.fetchedTodos![self.index]
-                    updateItem.title = self.todo.title
-                    updateItem.content = self.todo.content
-                    updateItem.image = self.todo.image
-                    updateItem.selectedDate = self.todo.selectedDate
+                    let todo = self.todo;
+
+                    updateItem.title = todo.title
+                    updateItem.content = todo.content
+                    updateItem.image = todo.image
+                    updateItem.selectedDate = todo.selectedDate
                     updateItem.updatedAt = Date()
 
                     do {
                         try self.context.save()
+                        self.todoStore.updateTodo(todo: self.todo, index: self.index)
                     } catch {
                         print(error)
                     }
@@ -49,7 +62,6 @@ struct TodoEdit: View {
 struct TodoEdit_Previews: PreviewProvider {
     static var previews: some View {
         TodoEdit(
-            todo: .constant(testTodos[0]),
             index: 0
         )
     }

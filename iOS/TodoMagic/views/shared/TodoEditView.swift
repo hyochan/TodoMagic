@@ -13,13 +13,20 @@ struct TodoEditView: View {
 
     var body: some View {
         VStack{
-            Image(systemName: todo.image)
-                .frame(width: 50 , height: 50, alignment: Alignment.center)
-                .clipShape(Circle())
-                .overlay(
-                    Circle().stroke(Color.white, lineWidth: 4))
-                .shadow(radius: 10)
-                .padding(.vertical, 50)
+            HStack {
+                NavigationLink(destination: SelectIcon(
+                    todo: self.$todo
+                )) {
+                    Image(systemName: self.todo.image ?? systemIcons[0])
+                        .frame(width: 50 , height: 50, alignment: Alignment.center)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle().stroke(Color("background"), lineWidth: 4))
+                        .shadow(radius: 10)
+                }
+            }
+            .frame(width: 50 , height: 50, alignment: Alignment.center)
+            .padding(.vertical, 50)
 
             VStack(alignment: .leading) {
                 Text("TITLE")
@@ -33,9 +40,10 @@ struct TodoEditView: View {
                 Text("DESCRIPTION")
                     .font(.callout)
                     .bold()
-                TextField("ENTER_TITLE", text: $todo.content)
+                TextField("ENTER_DESCRIPTION", text: $todo.content)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-            }.padding(.horizontal)
+            }
+            .padding(.horizontal)
             .padding(.vertical, 10)
 
             DatePicker(

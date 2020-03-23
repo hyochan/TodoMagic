@@ -9,15 +9,14 @@
 import SwiftUI
 
 struct TodoDetail: View {
-    // Note that you are able to bind to @State directly trough props
-    @Binding var todo: TodoModel
+    @EnvironmentObject var todoStore: TodoStore
     var fetchedTodos:FetchedResults<Todos>?
     var index: Int
 
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Image(systemName: todo.image)
+                Image(systemName: todoStore.getTodo(index: index).image ?? systemIcons[0])
                     .frame(width: 80 , height: 80, alignment: Alignment.center)
                     .clipShape(Circle())
                     .overlay(
@@ -25,11 +24,11 @@ struct TodoDetail: View {
                     .shadow(radius: 10)
                     .padding(.vertical, 20)
 
-                Text(todo.content)
+                Text(todoStore.getTodo(index: index).content)
                     .font(.system(size: 24, weight: .medium))
                     .padding(.bottom, 8)
 
-                Text(getFormattedDate(date: todo.selectedDate, format: "dd-MMM-yyyy"))
+                Text(getFormattedDate(date: todoStore.getTodo(index: index).selectedDate, format: "dd-MMM-yyyy"))
                     .font(.system(size: 18, weight: .light))
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
@@ -39,11 +38,10 @@ struct TodoDetail: View {
             Spacer()
         }
         .padding(28)
-        .navigationBarTitle(todo.title)
+        .navigationBarTitle(todoStore.getTodo(index: index).title)
         .navigationBarItems(trailing:
             NavigationLink(
                 destination: TodoEdit(
-                    todo: self.$todo,
                     fetchedTodos: self.fetchedTodos,
                     index: index
                 )
@@ -62,7 +60,6 @@ struct TodoDetail_Previews: PreviewProvider {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
         return TodoDetail(
-            todo: .constant(testTodos[0]),
             index: 0
         ).environment(\.managedObjectContext, context)
     }

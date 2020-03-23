@@ -9,16 +9,16 @@
 import SwiftUI
 
 struct TodoRow: View {
-    @Binding var todo: TodoModel
-    @Binding var todos: [TodoModel]
+    @EnvironmentObject var todoStore: TodoStore
+    var index: Int
     
     func TodoView() -> some View {
-        if (todo.hasChecked) {
+        if (self.todoStore.getTodo(index: index).hasChecked) {
             return VStack(alignment: .leading) {
-                Text(todo.title)
+                Text(self.todoStore.getTodo(index: index).title)
                     .strikethrough()
                     .font(.system(size: 20, weight: .bold))
-                Text(getFormattedDate(date: todo.selectedDate, format: "dd-MMM-yyyy"))
+                Text(getFormattedDate(date: self.todoStore.getTodo(index: index).selectedDate, format: "dd-MMM-yyyy"))
                     .strikethrough()
                     .font(.caption)
                     .fontWeight(.bold)
@@ -26,9 +26,9 @@ struct TodoRow: View {
             }
         }
         return VStack(alignment: .leading) {
-            Text(todo.title)
+            Text(self.todoStore.getTodo(index: index).title)
                 .font(.system(size: 20, weight: .bold))
-            Text(getFormattedDate(date: todo.selectedDate, format: "dd-MMM-yyyy"))
+            Text(getFormattedDate(date: self.todoStore.getTodo(index: index).selectedDate, format: "dd-MMM-yyyy"))
                 .font(.caption)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
@@ -38,19 +38,19 @@ struct TodoRow: View {
     var body: some View {
         HStack {
             Image(
-                systemName: (self.todo.hasChecked ? "checkmark.circle" : "circle")
+                systemName: (self.todoStore.getTodo(index: index).hasChecked ? "checkmark.circle" : "circle")
             )
             .frame(width: 40 , height: 40, alignment: Alignment.center)
             .onTapGesture {
                 withAnimation {
-                    self.todo.hasChecked = !self.todo.hasChecked
-                    self.todos = self.todos.sorted(by: {!$0.hasChecked && $1.hasChecked})
+                    self.todoStore.todos[self.index].hasChecked = !self.todoStore.todos[self.index].hasChecked
+                    self.todoStore.sort()
                 }
             }
             TodoView()
             Spacer()
             Image(
-                systemName: self.todo.image
+                systemName: self.todoStore.getTodo(index: index).image ?? systemIcons[0]
             )
         }
     }
@@ -58,6 +58,6 @@ struct TodoRow: View {
 
 struct TodoRow_Previews: PreviewProvider {
     static var previews: some View {
-        TodoRow(todo: .constant(testTodos[0]), todos: .constant(testTodos))
+        TodoRow(index: 0)
     }
 }

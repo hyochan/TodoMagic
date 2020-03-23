@@ -18,3 +18,13 @@
 "DELETE" = "Delete";
 "CLICK_TO_PROCEED" = "Click to proceed";
 "DO_NOT_SEE_AGAIN" = "Do not see again";
+"NO_TODOS" = "Todo list is empty";
+"ADD_TODO" = "Add Todo";
+"ENTER_TITLE" = "Enter title...";
+"ENTER_DESCRIPTION" = "Enter description...";
+"SELECT_ICON" = "Select icon";
+"INFO" = "Info";
+"VERSION" = "Version";
+"OTHERS" = "Others";
+"ABOUT_ME" = "About me";
+"BACK_TO_INTRO" = "Back to intro";

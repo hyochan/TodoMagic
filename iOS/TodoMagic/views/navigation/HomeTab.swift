@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct HomeTab: View {
+    @FetchRequest(fetchRequest: Todos.getAllTodos()) var fetchedTodos:FetchedResults<Todos>
+    @EnvironmentObject var todoStore: TodoStore
+
     var body: some View {
         TabView{
-            Todo()
+            Todo(fetchedTodos: self.fetchedTodos)
             .tabItem{
                  Image(systemName: "square.stack.3d.down.right")
                  Text("TODO")
@@ -21,6 +24,22 @@ struct HomeTab: View {
             .tabItem {
                 Image(systemName: "gear")
                 Text("SETTINGS")
+            }
+        }
+        .accentColor(Color("primary"))
+        .onAppear {
+            self.fetchedTodos.forEach { todos in
+                self.todoStore.addTodo(
+                    todo: TodoModel(
+                        title: todos.title ?? "",
+                        image: todos.image ?? "",
+                        content: todos.content ?? "",
+                        selectedDate: todos.selectedDate ?? Date(),
+                        createdAt: todos.createdAt,
+                        updatedAt: todos.updatedAt
+                    )
+                )
+                self.todoStore.sort()
             }
         }
     }

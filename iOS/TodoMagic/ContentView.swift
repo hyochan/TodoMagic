@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-//        HomeTab(showHome: .constant(false))
         Switch()
     }
 }
