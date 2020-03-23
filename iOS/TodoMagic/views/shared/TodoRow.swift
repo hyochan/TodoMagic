@@ -50,7 +50,7 @@ struct TodoRow: View {
             TodoView()
             Spacer()
             Image(
-                systemName: self.todoStore.getTodo(index: index).image
+                systemName: self.todoStore.getTodo(index: index).image ?? systemIcons[0]
             )
         }
     }

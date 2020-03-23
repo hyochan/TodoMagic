@@ -20,12 +20,14 @@ struct TodoEdit: View {
     var index: Int
 
     var body: some View {
-        List{
+        ScrollView{
             TodoEditView(todo: $todo)
         }
         .onAppear {
-            let currentTodo = self.todoStore.todos[self.index]
-            self.todo = currentTodo
+            if (self.todo.title == "") {
+                let currentTodo = self.todoStore.todos[self.index]
+                self.todo = currentTodo
+            }
         }
         .navigationBarItems(trailing:
             Button(action: {

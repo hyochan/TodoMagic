@@ -16,7 +16,7 @@ struct TodoDetail: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Image(systemName: todoStore.getTodo(index: index).image)
+                Image(systemName: todoStore.getTodo(index: index).image ?? systemIcons[0])
                     .frame(width: 80 , height: 80, alignment: Alignment.center)
                     .clipShape(Circle())
                     .overlay(

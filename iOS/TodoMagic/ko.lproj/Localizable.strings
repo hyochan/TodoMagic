@@ -20,3 +20,6 @@
 "DO_NOT_SEE_AGAIN" = "다시보지 않기";
 "NO_TODOS" = "예정된 할일 없음";
 "ADD_TODO" = "할일 추가";
+"ENTER_TITLE" = "제목을 입력해주세요...";
+"ENTER_DESCRIPTION" = "설명을 입력해주세요...";
+"SELECT_ICON" = "아이콘 선택";
