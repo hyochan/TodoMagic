@@ -19,7 +19,7 @@ let systemIcons = [
     "livephoto", "scope", "ear", "hand.thumbsup", "hand.draw", "hand.point.right",
     "burst", "waveform.path.ecg", "staroflife", "app", "app.gift.fill", "app.badge",
     "airplane", "hourglass.tophalf.fill", "skew", "grid.circle", "lasso", "eyeglasses",
-    "battery.100", "lightbulb", "info", "exclamationmark", "circle", "asterisk.circle.fill",
+    "battery.100", "lightbulb", "circle", "asterisk.circle.fill",
     "rays", "timelapse", "slowmo", "suit.heart"
 ]
 

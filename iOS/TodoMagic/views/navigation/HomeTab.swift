@@ -25,35 +25,23 @@ struct HomeTab: View {
                 Image(systemName: "gear")
                 Text("SETTINGS")
             }
-        }.onAppear {
-            self.fetchedTodos.forEach { todos in
-                self.todoStore.addTodo(
-                    todo: TodoModel(
-                        title: todos.title ?? "",
-                        image: todos.image ?? "",
-                        content: todos.content ?? "",
-                        selectedDate: todos.selectedDate ?? Date(),
-                        createdAt: todos.createdAt,
-                        updatedAt: todos.updatedAt
-                    )
-                )
-                self.todoStore.sort()
-            }
         }
         .accentColor(Color("primary"))
         .onAppear {
-            self.fetchedTodos.forEach { todos in
-                self.todoStore.addTodo(
-                    todo: TodoModel(
-                        title: todos.title ?? "",
-                        image: todos.image ?? "",
-                        content: todos.content ?? "",
-                        selectedDate: todos.selectedDate ?? Date(),
-                        createdAt: todos.createdAt,
-                        updatedAt: todos.updatedAt
+            if (self.todoStore.todos.count == 0) {
+                self.fetchedTodos.forEach { todos in
+                    self.todoStore.addTodo(
+                        todo: TodoModel(
+                            title: todos.title ?? "",
+                            image: todos.image ?? "",
+                            content: todos.content ?? "",
+                            selectedDate: todos.selectedDate ?? Date(),
+                            createdAt: todos.createdAt,
+                            updatedAt: todos.updatedAt
+                        )
                     )
-                )
-                self.todoStore.sort()
+                    self.todoStore.sort()
+                }
             }
         }
     }
