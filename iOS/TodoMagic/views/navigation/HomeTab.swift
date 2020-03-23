@@ -25,10 +25,10 @@ struct HomeTab: View {
                 Image(systemName: "gear")
                 Text("SETTINGS")
             }
-        }.onAppear() {
+        }.onAppear {
             self.fetchedTodos.forEach { todos in
-                self.todos.append(
-                    TodoModel(
+                self.todoStore.addTodo(
+                    todo: TodoModel(
                         title: todos.title ?? "",
                         image: todos.image ?? "",
                         content: todos.content ?? "",
@@ -37,15 +37,7 @@ struct HomeTab: View {
                         updatedAt: todos.updatedAt
                     )
                 )
-            }
-            self.todos = self.todos.sorted {
-                if $0.hasChecked != $1.hasChecked {
-                    return !$0.hasChecked && $1.hasChecked
-                }
-
-                else { // All other fields are tied, break ties by last name
-                    return $0.selectedDate.compare($1.selectedDate) == .orderedDescending
-                }
+                self.todoStore.sort()
             }
         }
         .accentColor(Color("primary"))
