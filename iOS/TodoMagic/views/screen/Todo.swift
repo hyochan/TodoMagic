@@ -14,20 +14,18 @@ let testTodos = [
 
 struct Todo: View {
     @Environment(\.managedObjectContext) var context
+    @EnvironmentObject var todoStore: TodoStore
     @State private var show = false;
-    @State var todos: [TodoModel]
     var fetchedTodos:FetchedResults<Todos>?
 
     @ViewBuilder
     var body: some View {
         NavigationView {
             ZStack {
-                if self.todos.count == 0 {
+                if (self.todoStore.countTodos() == 0) {
                     VStack {
                         Text("NO_TODOS")
-                        NavigationLink(
-                            destination: TodoAdd(todos: self.$todos)
-                        ) {
+                        NavigationLink(destination: TodoAdd()) {
                             HStack {
                                 Image(systemName: "pencil")
                                 .imageScale(.large)
@@ -48,16 +46,12 @@ struct Todo: View {
                     }
                 } else {
                     List {
-                        ForEach(0..<self.todos.count,id:\.self) { index in
+                        ForEach(Array(todoStore.todos.enumerated()), id: \.1.id) { (index, todo) in
                             NavigationLink(destination: TodoDetail(
-                                todo: self.$todos[index],
                                 fetchedTodos: self.fetchedTodos,
                                 index: index
                             )) {
-                                TodoRow(
-                                    todo: self.$todos[index],
-                                    todos: self.$todos
-                                )
+                                TodoRow(index: index)
                                 .animation(.linear)
                             }
                         }.onDelete { indexSet in
@@ -66,18 +60,17 @@ struct Todo: View {
                                 self.context.delete(deleteItem)
                                 do {
                                     try self.context.save()
+                                    self.todoStore.removeTodo(offsets: indexSet)
                                 } catch {
                                     print(error)
                                 }
                             }
-                        }.onDelete{offsets in
-                            self.todos.remove(atOffsets: offsets)
                         }
                     }
                     .navigationBarTitle("TODO")
                     .navigationBarItems(trailing:
                         NavigationLink(
-                            destination: TodoAdd(todos: self.$todos)
+                            destination: TodoAdd()
                         ) {
                             Image(systemName: "plus")
                             .imageScale(.large)
@@ -92,7 +85,7 @@ struct Todo: View {
 
 struct Todo_Previews: PreviewProvider {
     static var previews: some View {
-        Todo(todos: testTodos)
+        Todo()
     }
 }
 

@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     @ObservedObject var appStore = AppStore()
+    @ObservedObject var todoStore = TodoStore()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -24,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let contentView = ContentView()
             .environmentObject(appStore)
+            .environmentObject(todoStore)
             .environment(\.managedObjectContext, context)
 
         // Use a UIHostingController as window root view controller.

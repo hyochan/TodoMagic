@@ -36,7 +36,7 @@ let systemIcons = [
 struct TodoAdd: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) var context
-    @Binding var todos: [TodoModel]
+    @EnvironmentObject var todoStore: TodoStore
     @State var todo: TodoModel = TodoModel(
         title: "", image: systemIcons[0], content: ""
     )
@@ -59,8 +59,8 @@ struct TodoAdd: View {
 
                     do {
                         try self.context.save()
-                        self.todos.append(self.todo)
-                        self.todos = self.todos.sorted(by: {!$0.hasChecked && $1.hasChecked})
+                        self.todoStore.addTodo(todo: self.todo)
+                        self.todoStore.sort()
                     } catch {
                         print(error)
                     }
@@ -77,6 +77,6 @@ struct TodoAdd: View {
 
 struct TodoAdd_Previews: PreviewProvider {
     static var previews: some View {
-        TodoAdd(todos: .constant(testTodos))
+        TodoAdd()
     }
 }
