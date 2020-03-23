@@ -26,6 +26,7 @@ struct HomeTab: View {
                 Text("SETTINGS")
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(Color("primary"))
         .onAppear {
             if (self.todoStore.todos.count == 0) {
