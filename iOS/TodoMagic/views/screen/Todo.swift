@@ -86,7 +86,7 @@ struct Todo: View {
 
 struct Todo_Previews: PreviewProvider {
     static var previews: some View {
-        Todo()
+        Todo(todos: testTodos)
     }
 }
 
