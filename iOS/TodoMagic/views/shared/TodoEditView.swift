@@ -18,11 +18,10 @@ struct TodoEditView: View {
                     todo: self.$todo
                 )) {
                     Image(systemName: self.todo.image ?? systemIcons[0])
-                        .renderingMode(.original)
                         .frame(width: 50 , height: 50, alignment: Alignment.center)
                         .clipShape(Circle())
                         .overlay(
-                            Circle().stroke(Color.white, lineWidth: 4))
+                            Circle().stroke(Color("background"), lineWidth: 4))
                         .shadow(radius: 10)
                 }
             }
@@ -54,7 +53,7 @@ struct TodoEditView: View {
             ).labelsHidden()
 
             Spacer()
-        }.background(Color("background"))
+        }
     }
 }
 

@@ -22,11 +22,10 @@ struct SelectIcon: View {
                     }) {
                         HStack {
                             Image(systemName: systemIcons[i])
-                                .renderingMode(.original)
                                 .frame(width: 32 , height: 32, alignment: Alignment.center)
                                 .clipShape(Circle())
                                 .overlay(
-                                    Circle().stroke(Color.white, lineWidth: 4))
+                                    Circle().stroke(Color.white, lineWidth: 1))
                                 .shadow(radius: 10)
                             Text(systemIcons[i])
                                 .padding(.leading, 16)

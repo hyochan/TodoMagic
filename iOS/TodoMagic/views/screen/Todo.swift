@@ -73,6 +73,7 @@ struct Todo: View {
                             destination: TodoAdd()
                         ) {
                             Image(systemName: "plus")
+                            .foregroundColor(Color("primary"))
                             .imageScale(.large)
                         }
                     )

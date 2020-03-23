@@ -8,11 +8,15 @@
 
 import Foundation
 
+enum SettingType {
+  case ABOUT_ME, BACK_TO_INTRO
+}
 
 struct SettingsItem: Identifiable {
     var id = UUID()
     var title: String
     var text: String? = ""
+    var type: SettingType?
 }
 
 struct SettingsModel: Identifiable {

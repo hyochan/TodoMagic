@@ -25,7 +25,9 @@ struct HomeTab: View {
                 Image(systemName: "gear")
                 Text("SETTINGS")
             }
-        }.onAppear {
+        }
+        .accentColor(Color("primary"))
+        .onAppear {
             self.fetchedTodos.forEach { todos in
                 self.todoStore.addTodo(
                     todo: TodoModel(

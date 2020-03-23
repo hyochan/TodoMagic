@@ -16,7 +16,7 @@ struct Welcome: View {
 
     var body: some View {
         ZStack {
-            Color("primary")
+            Color("primaryDark")
                 .edgesIgnoringSafeArea(.all)
                 
             VStack {
@@ -67,7 +67,7 @@ struct Welcome: View {
                         .padding()
                         .padding(.horizontal, 20)
                         .background(Color(red: 255, green: 255, blue: 255, opacity: 0.0032))
-                        .foregroundColor(Color("primary"))
+                        .foregroundColor(Color("primaryDark"))
                         .border(Color.white, width: 1)
                         .animation(.interactiveSpring())
                 }

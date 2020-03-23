@@ -23,3 +23,8 @@
 "ENTER_TITLE" = "Enter title...";
 "ENTER_DESCRIPTION" = "Enter description...";
 "SELECT_ICON" = "Select icon";
+"INFO" = "Info";
+"VERSION" = "Version";
+"OTHERS" = "Others";
+"ABOUT_ME" = "About me";
+"BACK_TO_INTRO" = "Back to intro";

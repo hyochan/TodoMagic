@@ -23,3 +23,8 @@
 "ENTER_TITLE" = "제목을 입력해주세요...";
 "ENTER_DESCRIPTION" = "설명을 입력해주세요...";
 "SELECT_ICON" = "아이콘 선택";
+"INFO" = "정보";
+"VERSION" = "버전";
+"OTHERS" = "기타";
+"ABOUT_ME" = "저자에 대해";
+"BACK_TO_INTRO" = "소개 페이지로 이동";
