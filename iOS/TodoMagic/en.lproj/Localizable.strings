@@ -18,3 +18,5 @@
 "DELETE" = "Delete";
 "CLICK_TO_PROCEED" = "Click to proceed";
 "DO_NOT_SEE_AGAIN" = "Do not see again";
+"NO_TODOS" = "Todo list is empty";
+"ADD_TODO" = "Add Todo";

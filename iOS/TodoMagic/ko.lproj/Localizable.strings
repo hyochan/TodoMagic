@@ -18,3 +18,5 @@
 "DELETE" = "지우기";
 "CLICK_TO_PROCEED" = "클릭해서 계속하기";
 "DO_NOT_SEE_AGAIN" = "다시보지 않기";
+"NO_TODOS" = "예정된 할일 없음";
+"ADD_TODO" = "할일 추가";

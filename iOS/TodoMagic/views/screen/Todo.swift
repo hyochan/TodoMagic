@@ -13,75 +13,86 @@ let testTodos = [
 ]
 
 struct Todo: View {
-    @State private var localTodos: [TodoModel] = []
-    @State private var show = false;
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(fetchRequest: Todos.getAllTodos()) var fetchedTodos:FetchedResults<Todos>
+    @State private var show = false;
+    @State var todos: [TodoModel]
+    var fetchedTodos:FetchedResults<Todos>?
 
+    @ViewBuilder
     var body: some View {
-        NavigationView{
-            List {
-                ForEach(Array(localTodos.enumerated()), id: \.1.id) { (index, todo) in
-                    NavigationLink(destination: TodoDetail(
-                        todo: self.$localTodos[index],
-                        fetchedTodos: self.fetchedTodos,
-                        index: index
-                    )) {
-                        TodoRow(
-                            todo: self.$localTodos[index],
-                            todos: self.$localTodos
-                        )
-                        .animation(.linear)
-                    }
-                }.onDelete { indexSet in
-                    let deleteItem = self.fetchedTodos[indexSet.first!]
-                    self.context.delete(deleteItem)
-                    do {
-                        try self.context.save()
-                        self.localTodos.remove(at: indexSet.first!)
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
-            .navigationBarTitle("TODO")
-            .navigationBarItems(trailing:
-                NavigationLink(
-                    destination: TodoAdd(todos: $localTodos)
-                ) {
-                    Image(systemName: "plus")
-                    .imageScale(.large)
-                }
-            )
-        }
-        .onAppear() {
-            self.fetchedTodos.forEach { todos in
-                self.localTodos.append(
-                    TodoModel(
-                        title: todos.title ?? "",
-                        image: todos.image ?? "",
-                        content: todos.content ?? "",
-                        selectedDate: todos.selectedDate ?? Date()
-                    )
-                )
-            }
-            self.localTodos = self.localTodos.sorted {
-                if $0.hasChecked != $1.hasChecked {
-                    return !$0.hasChecked && $1.hasChecked
-                }
+        NavigationView {
+            ZStack {
+                if self.todos.count == 0 {
+                    VStack {
+                        Text("NO_TODOS")
+                        NavigationLink(
+                            destination: TodoAdd(todos: self.$todos)
+                        ) {
+                            HStack {
+                                Image(systemName: "pencil")
+                                .imageScale(.large)
+                                .padding(.trailing, 8)
 
-                else { // All other fields are tied, break ties by last name
-                    return $0.selectedDate.compare($1.selectedDate) == .orderedDescending
+                                Text("ADD_TODO")
+                            }
+                            .font(.system(size: 16))
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .padding(.horizontal, 12)
+                            .background(Color("background"))
+                            .foregroundColor(Color("font"))
+                            .border(Color("primary"), width: 1)
+                            .animation(.interactiveSpring())
+                            .animation(.linear)
+                        }.padding(.bottom, 100)
+                    }
+                } else {
+                    List {
+                        ForEach(0..<self.todos.count,id:\.self) { index in
+                            NavigationLink(destination: TodoDetail(
+                                todo: self.$todos[index],
+                                fetchedTodos: self.fetchedTodos,
+                                index: index
+                            )) {
+                                TodoRow(
+                                    todo: self.$todos[index],
+                                    todos: self.$todos
+                                )
+                                .animation(.linear)
+                            }
+                        }.onDelete { indexSet in
+                            if (self.fetchedTodos != nil) {
+                                let deleteItem = self.fetchedTodos![indexSet.first!]
+                                self.context.delete(deleteItem)
+                                do {
+                                    try self.context.save()
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                        }.onDelete{offsets in
+                            self.todos.remove(atOffsets: offsets)
+                        }
+                    }
+                    .navigationBarTitle("TODO")
+                    .navigationBarItems(trailing:
+                        NavigationLink(
+                            destination: TodoAdd(todos: self.$todos)
+                        ) {
+                            Image(systemName: "plus")
+                            .imageScale(.large)
+                        }
+                    )
                 }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
 struct Todo_Previews: PreviewProvider {
     static var previews: some View {
-        Todo()
+        Todo(todos: testTodos)
     }
 }
 
