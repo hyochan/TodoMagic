@@ -6,3 +6,4 @@
 
 ## Blogs
 * [What is news in Swift UI?](https://medium.com/dooboolab/what-is-news-in-swift-ui-eb17a70318c4)
+* [SwiftUI folder structures as RN developer](https://medium.com/dooboolab/swiftui-folder-structures-as-rn-developer-f1ba12be9a05)
