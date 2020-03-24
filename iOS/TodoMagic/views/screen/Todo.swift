@@ -18,7 +18,6 @@ struct Todo: View {
     @State private var show = false;
     var fetchedTodos:FetchedResults<Todos>?
 
-    @ViewBuilder
     var body: some View {
         NavigationView {
             ZStack {
