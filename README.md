@@ -2,7 +2,7 @@
 
 > This project aims to share useful tutorials with other developers around the world. SwiftUI and Jetpack Compose.
 
-![iconSymbol](https://user-images.githubusercontent.com/27461460/77458572-bfeaff00-6e41-11ea-9f87-fee8ca1b6aec.png)
+![image](https://user-images.githubusercontent.com/27461460/77463970-d1d0a000-6e49-11ea-84f3-315350b7f8bd.png)
 
 ## [iOS](iOS/README.md)
 - Built in Swift UI which is announced in the middle of 2019.
